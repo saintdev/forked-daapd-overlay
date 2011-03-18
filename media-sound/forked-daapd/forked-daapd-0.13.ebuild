@@ -16,12 +16,12 @@ KEYWORDS="~amd64 ~x86"
 IUSE="flac itunes musepack"
 
 DEPEND="${RDEPEND}
-        dev-vcs/git[curl]
         dev-util/pkgconfig"
 
 RDEPEND="flac? ( media-libs/flac )
         itunes? ( >=app-pda/libplist-0.16 )
         musepack? ( media-libs/taglib )
+        media-libs/alsa-lib
         dev-db/sqlite:3[unlock-notify,threadsafe]
         >=dev-libs/avl-0.3.5
         dev-libs/confuse
@@ -37,7 +37,8 @@ RDEPEND="flac? ( media-libs/flac )
 RESTRICT="primaryuri"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-configure.patch
+	epatch "${FILESDIR}"/${PN}-0.12-configure.patch
+    epatch "${FILESDIR}"/${PN}-0.12-libevent.patch
 	eautoreconf
 }
 
