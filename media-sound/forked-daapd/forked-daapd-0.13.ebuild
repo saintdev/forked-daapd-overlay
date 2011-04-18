@@ -30,7 +30,7 @@ RDEPEND="flac? ( media-libs/flac )
         dev-libs/libgcrypt
         dev-libs/mini-xml
         >=dev-libs/libunistring-0.9.3
-        media-video/ffmpeg
+        virtual/ffmpeg
         >=sys-libs/zlib-1.2.5-r2
 		>=net-dns/avahi-0.6.24"
 		
