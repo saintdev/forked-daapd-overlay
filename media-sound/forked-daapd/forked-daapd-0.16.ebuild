@@ -32,6 +32,7 @@ RDEPEND="itunes? ( >=app-pda/libplist-0.16 )
 	virtual/ffmpeg"
 
 DEPEND="${RDEPEND}
+	dev-java/antlr:3
 	dev-util/gperf
 	dev-util/pkgconfig"
 
