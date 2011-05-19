@@ -36,7 +36,6 @@ src_prepare() {
 }
 
 src_compile() {
-	append-flags "-fPIC"
 	emake || die "emake failed"
 }
 
