@@ -16,7 +16,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="flac itunes musepack"
 
 DEPEND="${RDEPEND}
-        dev-util/pkgconfig"
+        dev-util/pkgconfig
+	dev-util/gperf"
 
 RDEPEND="flac? ( media-libs/flac )
         itunes? ( >=app-pda/libplist-0.16 )
