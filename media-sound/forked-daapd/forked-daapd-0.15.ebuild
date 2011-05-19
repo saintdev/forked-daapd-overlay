@@ -15,26 +15,26 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="flac itunes musepack"
 
-DEPEND="${RDEPEND}
-        dev-util/pkgconfig
-	dev-util/gperf"
+RDEPEND="itunes? ( >=app-pda/libplist-0.16 )
+	dev-db/sqlite:3[unlock-notify,threadsafe]
+	>=dev-java/antlr-c-3.1.3
+	>=dev-libs/avl-0.3.5
+	dev-libs/confuse
+	dev-libs/libevent
+	dev-libs/libgcrypt
+	>=dev-libs/libunistring-0.9.3
+	dev-libs/mini-xml
+	media-libs/alsa-lib
+	flac? ( media-libs/flac )
+	musepack? ( media-libs/taglib )
+	>=net-dns/avahi-0.6.24
+	>=sys-libs/zlib-1.2.5-r2
+	virtual/ffmpeg"
 
-RDEPEND="flac? ( media-libs/flac )
-        itunes? ( >=app-pda/libplist-0.16 )
-        musepack? ( media-libs/taglib )
-        media-libs/alsa-lib
-        dev-db/sqlite:3[unlock-notify,threadsafe]
-        >=dev-libs/avl-0.3.5
-        dev-libs/confuse
-        dev-libs/libevent
-        >=dev-java/antlr-c-3.1.3
-        dev-libs/libgcrypt
-        dev-libs/mini-xml
-        >=dev-libs/libunistring-0.9.3
-        virtual/ffmpeg
-        >=sys-libs/zlib-1.2.5-r2
-		>=net-dns/avahi-0.6.24"
-		
+DEPEND="${RDEPEND}
+	dev-util/gperf
+	dev-util/pkgconfig"
+
 RESTRICT="primaryuri"
 
 src_prepare() {
