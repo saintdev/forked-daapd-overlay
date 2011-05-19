@@ -39,7 +39,7 @@ RESTRICT="primaryuri"
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-0.12-configure.patch
-    epatch "${FILESDIR}"/${PN}-0.12-libevent.patch
+	epatch "${FILESDIR}"/${PN}-0.12-libevent.patch
 	eautoreconf
 }
 
