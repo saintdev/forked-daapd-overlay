@@ -20,7 +20,7 @@ RDEPEND="itunes? ( >=app-pda/libplist-0.16 )
 	>=dev-java/antlr-c-3.1.3
 	>=dev-libs/avl-0.3.5
 	dev-libs/confuse
-	dev-libs/libevent
+	<dev-libs/libevent-2.0
 	dev-libs/libgcrypt
 	>=dev-libs/libunistring-0.9.3
 	dev-libs/mini-xml
@@ -40,7 +40,6 @@ RESTRICT="primaryuri"
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-0.12-configure.patch
-	epatch "${FILESDIR}"/${PN}-0.12-libevent.patch
 	eautoreconf
 }
 
