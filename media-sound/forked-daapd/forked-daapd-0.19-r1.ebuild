@@ -17,7 +17,7 @@ IUSE="flac itunes musepack"
 
 RDEPEND="itunes? ( >=app-pda/libplist-0.16 )
 	dev-db/sqlite:3[unlock-notify,threadsafe]
-	>=dev-java/antlr-c-3.1.3
+	>=dev-libs/antlr-c-3.1.3
 	>=dev-libs/avl-0.3.5
 	dev-libs/confuse
 	<dev-libs/libevent-2.0
