@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=4
 
 inherit eutils autotools
 
 DESCRIPTION="DAAP and RSP media server. It is a complete rewrite of mt-daapd (Firefly Media Server)."
 HOMEPAGE="http://www.technologeek.org/projects/daapd/index.html"
-SRC_URI="http://alioth.debian.org/~jblache/forked-daapd/${PN}-${PV}.tar.gz"
+SRC_URI="http://alioth.debian.org/~jblache/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -39,7 +39,7 @@ DEPEND="${RDEPEND}
 RESTRICT="primaryuri"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-0.12-configure.patch
+	epatch "${FILESDIR}/${PN}-0.12-configure.patch"
 	eautoreconf
 }
 
@@ -50,13 +50,16 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed."
+	emake DESTDIR="${D}" install
 
-	newinitd "${FILESDIR}/${PN}.init.d" ${PN} || die
-	keepdir /etc/forked.daapd.d /var/cache/forked-daapd || die
-	mv "${D}/etc/forked-daapd.conf" "${D}/etc/forked.daapd.d/" || die
+	newinitd "${FILESDIR}/${PN}.init.d" "${PN}"
+	keepdir /etc/forked.daapd.d /var/cache/forked-daapd
+	mv "${D}/etc/forked-daapd.conf" "${D}/etc/forked.daapd.d/"
 
-	dodoc AUTHORS ChangeLog README NEWS || die
+	insinto /etc/logrotate.d
+	newins "${FILESDIR}/forked-daapd.logrotate" forked-daapd
+
+	dodoc AUTHORS ChangeLog README NEWS
 }
 
 pkg_preinst() {
@@ -67,6 +70,7 @@ pkg_preinst() {
 	fperms -R 0700 /etc/forked.daapd.d
 	fperms -R 0700 /var/cache/forked-daapd
 }
+
 pkg_postinst() {
 	einfo
 	elog "If you want to start more than one ${PN} service, symlink"
@@ -75,4 +79,3 @@ pkg_postinst() {
 	elog "Make sure that you have different cache directories for them."
 	einfo
 }
-
