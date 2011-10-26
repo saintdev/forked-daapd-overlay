@@ -50,7 +50,9 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
+	# Set localstatedir to avoid creating an empty /var/lib/cache/forked-daapd
+	# directory. Idea taken from the Debian packaging.
+	emake DESTDIR="${D}" localstatedir=/var install
 
 	newinitd "${FILESDIR}/${PN}.init.d" "${PN}"
 	keepdir /etc/forked.daapd.d /var/cache/forked-daapd
