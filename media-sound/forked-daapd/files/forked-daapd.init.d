@@ -21,11 +21,12 @@ if [[ -n ${CONF} && ${myservice} != "forked-daapd" ]]; then
 	CONFFILE="/etc/forked-daapd.d/${CONF}.conf"
 else
 	PIDFILE="/var/run/forked-daapd.pid"
-	CONFFILE="/etc/forked-daapd.conf"
+	CONFFILE="/etc/forked-daapd.d/forked-daapd.conf"
 fi
 
 depend() {
 	need net
+	need avahi-daemon
 	#USEHOWL need mDNSResponderPosix
 }
 

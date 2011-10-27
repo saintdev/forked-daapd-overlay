@@ -53,8 +53,8 @@ src_install() {
 	emake DESTDIR="${D}" install
 
 	newinitd "${FILESDIR}/${PN}.init.d" "${PN}"
-	keepdir /etc/forked.daapd.d /var/cache/forked-daapd
-	mv "${D}/etc/forked-daapd.conf" "${D}/etc/forked.daapd.d/"
+	keepdir /etc/forked-daapd.d /var/cache/forked-daapd
+	mv "${D}/etc/forked-daapd.conf" "${D}/etc/forked-daapd.d/"
 
 	insinto /etc/logrotate.d
 	newins "${FILESDIR}/forked-daapd.logrotate" forked-daapd
@@ -65,9 +65,9 @@ src_install() {
 pkg_preinst() {
 	enewgroup daapd
 	enewuser daapd -1 -1 /dev/null daapd
-	fowners -R daapd:daapd /etc/forked.daapd.d
+	fowners -R daapd:daapd /etc/forked-daapd.d
 	fowners -R daapd:daapd /var/cache/forked-daapd
-	fperms -R 0700 /etc/forked.daapd.d
+	fperms -R 0700 /etc/forked-daapd.d
 	fperms -R 0700 /var/cache/forked-daapd
 }
 
