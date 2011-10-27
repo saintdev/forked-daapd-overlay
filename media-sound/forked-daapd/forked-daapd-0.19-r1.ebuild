@@ -53,8 +53,9 @@ src_install() {
 	emake DESTDIR="${D}" install
 
 	newinitd "${FILESDIR}/${PN}.init.d" "${PN}"
-	keepdir /etc/forked.daapd.d /var/cache/forked-daapd
-	mv "${D}/etc/forked-daapd.conf" "${D}/etc/forked.daapd.d/"
+	keepdir /etc/forked-daapd.d /var/cache/forked-daapd
+	mv "${D}/etc/forked-daapd.conf" "${D}/etc/forked-daapd.d/forked-daapd.conf"
+	fperms 0600 /etc/forked-daapd.d/forked-daapd.conf
 
 	insinto /etc/logrotate.d
 	newins "${FILESDIR}/forked-daapd.logrotate" forked-daapd
@@ -65,10 +66,30 @@ src_install() {
 pkg_preinst() {
 	enewgroup daapd
 	enewuser daapd -1 -1 /dev/null daapd
-	fowners -R daapd:daapd /etc/forked.daapd.d
+	fowners -R daapd:daapd /etc/forked-daapd.d
 	fowners -R daapd:daapd /var/cache/forked-daapd
-	fperms -R 0700 /etc/forked.daapd.d
+	fperms -R 0700 /etc/forked-daapd.d
 	fperms -R 0700 /var/cache/forked-daapd
+
+	ewarn
+	ewarn "The default configuration file has been moved from /etc/forked-daapd.conf"
+	ewarn "to /etc/forked-daapd.d/forked-daapd.conf.  Additionally the configuration"
+	ewarn "folder was named /etc/forked.daapd.d and is renamed to /etc/forked-daapd.d."
+	ewarn
+
+	if [ -d /etc/forked.daapd.d ]; then
+		mv /etc/forked.daapd.d /etc/forked-daapd.d
+		ewarn "/etc/forked.daapd.d/ renamed to /etc/forked-daapd.d/"
+		ewarn
+	fi
+
+	if [ -f /etc/forked-daapd.conf ]; then
+		mv /etc/forked-daapd.conf /etc/forked-daapd.d/forked-daapd.conf
+		chmod 600 /etc/forked-daapd.d/forked-daapd.conf
+		ewarn "/etc/forked-daapd.conf moved to /etc/forked-daapd.d/forked-daapd.conf"
+		ewarn
+	fi
+
 }
 
 pkg_postinst() {
